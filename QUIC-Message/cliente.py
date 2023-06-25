@@ -3,6 +3,7 @@ import asyncio
 from aioquic.asyncio import connect
 from aioquic.quic.connection import QuicConnectionProtocol
 from aioquic.quic.configuration import QuicConfiguration
+from aioquic.h3.connection import H3_ALPN
 
 async def chat_client():
     parser = argparse.ArgumentParser(description="Chat client using aioquic")

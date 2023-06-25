@@ -1,21 +1,27 @@
 import asyncio
 import argparse
 from aioquic.asyncio import serve
-from aioquic.quic.connection import QuicConnectionProtocol
+from aioquic.quic.connection import QuicConnection
 from aioquic.quic.configuration import QuicConfiguration
-from aioquic.quic.events import DatagramFrameReceived, QuicEvent, QuicReceiveStreamDataAvailable, StreamData
+from aioquic.quic.events import DatagramFrameReceived, QuicEvent, StreamDataReceived
+import asyncio
+from aioquic.asyncio.client import connect
+from aioquic.asyncio.protocol import QuicConnectionProtocol
+from aioquic.quic.configuration import QuicConfiguration
+from aioquic.h3.connection import H3_ALPN
+
 from typing import Dict
 
-class ChatServerProtocol(QuicConnectionProtocol):
+class ChatServerProtocol(QuicConnection):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.clients: Dict[str, QuicConnectionProtocol] = {}
+        self.clients: Dict[str, QuicConnection] = {}
 
     async def handle_event(self, event: QuicEvent):
         if isinstance(event, DatagramFrameReceived):
             message = event.data.decode()
             self.broadcast(message)
-        elif isinstance(event, QuicReceiveStreamDataAvailable):
+        elif isinstance(event, StreamDataReceived):
             stream_data = await self._quic_stream_receive_data(event.stream_id, event.max_data)
             message = stream_data.data.decode()
             self.broadcast(message)
