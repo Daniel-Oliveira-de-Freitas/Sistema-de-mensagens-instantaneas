@@ -26,3 +26,7 @@ jobs:
         cd QUIC-Message-GO/server
         go mod tidy
         go build main.go
+    - name: Run server
+      run: |
+        cd QUIC-Message-GO/server
+        ./main
