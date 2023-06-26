@@ -23,6 +23,9 @@ jobs:
 
     - name: Change to server directory
       run: cd QUIC-Message-GO/server
+      
+    - name: Verify dependencies
+      run: go mod tidy
 
     - name: Build Go server
       run: go build main.go
