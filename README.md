@@ -38,6 +38,8 @@ sudo apt install golang-go
 ./generate_cert.sh
 ```
 #### Documentação
+###### Classes/Métodos
+###### Variáveis
 
 #### Executar a aplicação
 ```
