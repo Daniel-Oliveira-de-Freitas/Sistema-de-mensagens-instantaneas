@@ -1,5 +1,6 @@
 import socket
 import threading
+import time
 
 class ChatClient:
     def __init__(self, username, host, port):
@@ -16,7 +17,10 @@ class ChatClient:
             print(message)
 
     def send_message(self, message):
+        start_time = time.time_ns()
         self.socket.send(f"{self.username}: {message}".encode())
+        rtt = (time.time_ns() - start_time)
+        print(f"RTT: {rtt} nanoseconds")
 
 if __name__ == "__main__":
     username = input("Enter your username: ")
