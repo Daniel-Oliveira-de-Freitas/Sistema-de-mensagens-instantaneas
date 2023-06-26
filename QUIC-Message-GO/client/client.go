@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"crypto/tls"
 	"crypto/x509"
-	"encoding/pem"
 	"encoding/json"
+	"encoding/pem"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -49,7 +50,11 @@ func main() {
 	log.Printf("Body length: %d bytes \n", body.Len())
 	log.Printf("Response body %s \n", body.Bytes())
 
-	message := map[string]string{"texto":"Olá, servidor"}
+	var inputText string
+	fmt.Print("Enter the message text: ")
+	fmt.Scanln(&inputText)
+
+	message := map[string]string{"texto": inputText}
 	jsonMessage, err := json.Marshal(message)
 	if err != nil {
 		log.Fatal(err)

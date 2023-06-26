@@ -12,6 +12,10 @@ Instala nos dois diretórios client e server
 - tar -C /usr/local -xzf go1.19.linux-amd64.tar.gz
 - export PATH=$PATH:/usr/local/go/bin
 
+## Go instalação via terminal Linux
+
+sudo apt install golang-go
+
 ## Gerar os certs
 ./generate_cert.sh
 
