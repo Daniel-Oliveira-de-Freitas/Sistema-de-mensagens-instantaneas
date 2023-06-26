@@ -30,10 +30,6 @@ async def run_client():
             data = await protocol._quic.receive_data()
             print(f"Resposta do servidor: {data.decode()}")
 
-async def main():
-    loop = asyncio.get_event_loop()
-    await loop.run_until_complete(run_client())
-    loop.close()
-
-if __name__ == '__main__':
-    asyncio.run(main())
+loop = asyncio.get_event_loop()
+loop.run_until_complete(run_client())
+loop.close()
