@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"crypto/tls"
 	"crypto/x509"
@@ -47,12 +48,20 @@ func main() {
 		panic(err)
 	}
 
-	log.Printf("Body length: %d bytes \n", body.Len())
-	log.Printf("Response body %s \n", body.Bytes())
+	log.Printf("Body length: %d bytes\n", body.Len())
+	log.Printf("Response body: %s\n", body.Bytes())
 
+	// Solicita ao usuário que digite um texto de mensagem
 	var inputText string
 	fmt.Print("Enter the message text: ")
-	fmt.Scanln(&inputText)
+	// Cria um novo leitor para ler a entrada da entrada padrão (teclado)
+	reader := bufio.NewReader(os.Stdin)
+	// Lê a entrada até que um caractere de nova linha ('\n') seja encontrado
+	// A entrada é armazenada na variável 'inputText', e qualquer erro que ocorra é atribuído a 'err'
+	inputText, err = reader.ReadString('\n')
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	message := map[string]string{"texto": inputText}
 	jsonMessage, err := json.Marshal(message)
