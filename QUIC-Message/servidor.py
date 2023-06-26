@@ -12,6 +12,7 @@ from aioquic.h3.connection import H3_ALPN
 
 from typing import Dict
 
+
 class ChatServerProtocol(QuicConnection):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
