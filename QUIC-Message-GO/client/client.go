@@ -77,7 +77,7 @@ func main() {
 		// Remove o caractere de nova linha ('\n')
 		inputText = inputText[:len(inputText)-1]
 
-		if inputText == "sair" || inputText == "Sair" {
+		if inputText == "sair" || inputText == "Sair" || inputText == "SAIR" {
 			break // Encerra o laço de repetição se o usuário digitar "sair"
 		}
 
