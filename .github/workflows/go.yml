@@ -22,5 +22,5 @@ jobs:
         go-version: 1.19
 
     - name: Build Go server
-      working-directory: QUIC-MESSAGE-GO/server/
+      working-directory: /home/runner/work/Sistema-de-mensagens-instantaneas/QUIC-MESSAGE-GO/server/
       run: go build main.go
