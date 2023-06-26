@@ -37,13 +37,25 @@ sudo apt install golang-go
 ```
 ./generate_cert.sh
 ```
+#### Documentação
 
-## Executar
-- cd server
-- go build main.go
-- ./main
+#### Executar a aplicação
+```
+cd server
+```
+```
+go build main.go
+```
+```
+./main
+```
 
-
-- cd client
-- go build client.go
-- ./client
+```
+cd client
+```
+```
+go build client.go
+```
+```
+./client
+```
