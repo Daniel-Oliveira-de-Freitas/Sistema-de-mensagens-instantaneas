@@ -6,7 +6,7 @@ A implementação presente neste repostitório trata-se de uma aplicação desen
 O mesmo se replica para o diretório [TCP-Message](https://github.com/Daniel-Oliveira-de-Freitas/Sistema-de-mensagens-instantaneas/tree/main/TCP-Message), que por meio serviu de cenário exemplificativo para o desenvolvimento do [QUIC-Message-GO](https://github.com/Daniel-Oliveira-de-Freitas/Sistema-de-mensagens-instantaneas/tree/main/QUIC-Message-GO).
 
 ### QUIC-CONNECTION
-Neste, diretório [QUIC-CONNECTION](https://github.com/Daniel-Oliveira-de-Freitas/Sistema-de-mensagens-instantaneas/tree/main/QUIC-CONNECTION), os mantenedores fizeram uma tentativa do cenário citado, porém no decorrer do progresso aparecerão diversos problemas (dependências, importações), contudo obtivemos sucesso com o arquivo [connection.py]([caminho/do/arquivo.py](https://github.com/Daniel-Oliveira-de-Freitas/Sistema-de-mensagens-instantaneas/blob/main/QUIC-CONNECTION/connection.py)) este faz uma conexão com HTTP3 por meio da biblioteca aioquic.
+Neste, diretório [QUIC-CONNECTION](https://github.com/Daniel-Oliveira-de-Freitas/Sistema-de-mensagens-instantaneas/tree/main/QUIC-CONNECTION), os mantenedores fizeram uma tentativa do cenário citado, porém no decorrer do progresso aparecerão diversos problemas (dependências, importações), contudo obtivemos sucesso com o arquivo [connection.py](https://github.com/Daniel-Oliveira-de-Freitas/Sistema-de-mensagens-instantaneas/blob/main/QUIC-CONNECTION/connection.py) este faz uma conexão com HTTP3 por meio da biblioteca aioquic.
 
 ### QUIC-Message-GO
 
