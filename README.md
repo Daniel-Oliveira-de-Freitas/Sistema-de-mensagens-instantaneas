@@ -38,7 +38,16 @@ sudo apt install golang-go
 ./generate_cert.sh
 ```
 #### Documentação
+
 ###### Classes/Métodos
+###### Subprogramas
+
+Define uma rota para a raiz ("/") que retorna um JSON com a mensagem "Oi"
+```go
+router.GET("/", func(context *gin.Context) {
+		context.JSON(http.StatusOK, gin.H{"Oi": "OK"})
+	})
+```
 ###### Variáveis
 
 #### Executar a aplicação
