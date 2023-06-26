@@ -18,17 +18,25 @@ Em suma, escolhemos eleborar/desenvolver com a biblioteca Quic-go version 0.31.1
 
 #### Go instalação
 Instala nos dois diretórios client e server
-- wget https://golang.org/dl/go1.19.linux-amd64.tar.gz
-- tar -C /usr/local -xzf go1.19.linux-amd64.tar.gz
-- export PATH=$PATH:/usr/local/go/bin
+```
+wget https://golang.org/dl/go1.19.linux-amd64.tar.gz
+```
+```
+tar -C /usr/local -xzf go1.19.linux-amd64.tar.gz
+```
+```
+export PATH=$PATH:/usr/local/go/bin
+```
 
-## Go instalação via terminal Linux
-
+#### [ALTERNATIVA] Go instalação via terminal Linux
+```
 sudo apt install golang-go
+```
 
-## Gerar os certs
+#### Gerar os certs
+```
 ./generate_cert.sh
-
+```
 
 ## Executar
 - cd server
