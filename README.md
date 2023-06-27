@@ -103,14 +103,127 @@ sudo apt install golang-go
 		log.Printf("Server error: %v", err)
 	}
     ```
-###### Subprogramas
+    
+<hr>
 
-Define uma rota para a raiz ("/") que retorna um JSON com a mensagem "Oi"
-```go
-router.GET("/", func(context *gin.Context) {
-		context.JSON(http.StatusOK, gin.H{"Oi": "OK"})
-	})
-```
+- *Método `main` da classe `client.go`*
+  1. Obtém o diretório de trabalho atual.
+   ```go
+	currentPath, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+   ```
+  2. Cria um novo RoundTripper para comunicação HTTP/3
+   ```go
+	roundTripper := &http3.RoundTripper{
+		TLSClientConfig: &tls.Config{
+			RootCAs: getRootCA(currentPath), // Definir os certificados CA raiz para verificação TLS
+		},
+	}
+	defer roundTripper.Close() // Fecha o RoundTripper ao final da função principal
+   ```
+  3. Cria um cliente HTTP com o RoundTripper customizado
+   ```go
+	client := &http.Client{
+		Transport: roundTripper,
+	}
+   ```
+  4. Definição das URLs de destino
+   ```go
+	addr := "https://localhost:8080/"          // URL para solicitação GET
+	addr2 := "https://localhost:8080/mensagem" // URL para solicitação POST
+   ```
+  5. Envia uma requisição GET para o servidor
+   ```go
+	rsp, err := client.Get(addr)
+	if err != nil {
+		panic(err)
+	}
+	defer rsp.Body.Close()
+   ```
+  6. Lê o corpo da resposta em um buffer
+   ```go
+		body := &bytes.Buffer{}
+		_, err = io.Copy(body, rsp.Body)
+		if err != nil {
+			panic(err)
+		}
+   ```
+  7. Imprime o comprimento e o conteúdo do corpo da resposta
+   ```go
+		log.Printf("Body length: %d bytes\n", body.Len())
+		log.Printf("Response body: %s\n", body.Bytes())
+   ```
+  8. Solicita ao usuário que digite um texto de mensagem
+   ```go
+	 	var inputText string
+		fmt.Print("Enter the message text: ")
+		reader := bufio.NewReader(os.Stdin) // Cria um novo leitor para ler a entrada da entrada padrão (teclado)
+		inputText, err = reader.ReadString('\n') // Lê a entrada até que um caractere de nova linha ('\n') seja encontrado
+		if err != nil {
+			log.Fatal(err)
+		}
+   ```
+  9. Remove o caractere de nova linha ('\n')
+  ```go
+	 	inputText = inputText[:len(inputText)-1]
+
+		if inputText == "sair" || inputText == "Sair" || inputText == "SAIR" {
+			break // Encerra o laço de repetição se o usuário digitar "sair"
+		}
+  ```
+  10. Cria uma mensagem JSON com o texto digitado
+    ```go
+	message := map[string]string{"texto": inputText}
+	jsonMessage, err := json.Marshal(message)
+	if err != nil {
+		log.Fatal(err)
+	}
+    ```
+  11. Envia uma requisição POST com a mensagem JSON
+    ```go
+		start := time.Now()
+		resp, err := client.Post(addr2, "application/json", bytes.NewBuffer(jsonMessage))
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer resp.Body.Close()
+    ```
+  12. Imprime o status da resposta e o tempo de ida e volta
+    ```go
+		log.Printf("Response status: %s", resp.Status)
+		log.Printf("RTT: %v\n", time.Since(start).Nanoseconds())
+    ```
+- *Método `getRootCA(certPath string) *x509.CertPool` da classe `client.go`*
+  13. Lê o arquivo PEM contendo o certificado de CA raiz
+    ```go
+	caCertPath := path.Join(certPath, "ca.pem")
+	caCertRaw, err := os.ReadFile(caCertPath)
+	if err != nil {
+		panic(err)
+	}
+    ```
+  14. Decodifica o certificado codificado por PEM
+    ```go
+	p, _ := pem.Decode(caCertRaw)
+	if p.Type != "CERTIFICATE" {
+		panic("expected a certificate")
+	}
+    ```
+  15. ParseCertificate analisa o certificado do bloco PEM decodificado e retorna um objeto de certificado
+    ```go
+	caCert, err := x509.ParseCertificate(p.Bytes)
+	if err != nil {
+		panic(err)
+	}
+    ```
+  16. Cria um novo pool de certificados para manter os certificados de CA raiz
+    ```go
+	certPool := x509.NewCertPool()
+	certPool.AddCert(caCert)
+    ```
+  
 ###### Variáveis
 
 #### Executar a aplicação
