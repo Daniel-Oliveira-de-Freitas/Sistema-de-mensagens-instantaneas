@@ -195,7 +195,9 @@ sudo apt install golang-go
 		log.Printf("Response status: %s", resp.Status)
 		log.Printf("RTT: %v\n", time.Since(start).Nanoseconds())
     ```
+    
 - *Método `getRootCA(certPath string) *x509.CertPool` da classe `client.go`*
+  
   13. Lê o arquivo PEM contendo o certificado de CA raiz
     ```go
 	caCertPath := path.Join(certPath, "ca.pem")
@@ -225,6 +227,30 @@ sudo apt install golang-go
     ```
   
 ###### Variáveis
+- *Da classe `main.go`*
+    - `currentPath`: Variável que armazena o diretório de trabalho atual. Tipo: string.
+    - `router`: Variável que representa o roteador Gin. Tipo: *gin.Engine.
+    - `mensagem`: Variável que representa a estrutura do campo mensagem recebido no JSON. Tipo: struct { Texto string }.
+    - `server`: Variável que representa o servidor HTTP/3. Tipo: http3.Server.
+      
+- *Da classe `client.go`*
+    - `currentPath`: Variável que armazena o diretório de trabalho atual. Tipo: string.
+    - `roundTripper`: Variável que representa o RoundTripper utilizado para a comunicação HTTP/3. Tipo: *http3.RoundTripper.
+    - `client`: Variável que representa o cliente HTTP com o RoundTripper customizado. Tipo: *http.Client.
+    - `addr`: Variável que armazena a URL de destino para a solicitação GET. Tipo: string.
+    - `addr2`: Variável que armazena a URL de destino para a solicitação POST. Tipo: string.
+    - `rsp`: Variável que representa a resposta da requisição GET. Tipo: *http.Response.
+    - `body`: Variável que armazena o corpo da resposta em um buffer. Tipo: *bytes.Buffer.
+    - `inputText`: Variável que armazena o texto digitado pelo usuário. Tipo: string.
+    - `reader`: Variável que representa um leitor para ler a entrada padrão (teclado). Tipo: *bufio.Reader.
+    - `jsonMessage`: Variável que armazena a mensagem JSON com o texto digitado. Tipo: []byte.
+    - `start`: Variável que armazena o tempo de início da requisição POST. Tipo: time.Time.
+    - `resp`: Variável que representa a resposta da requisição POST. Tipo: *http.Response.
+    - `caCertPath`: Variável que armazena o caminho do arquivo de certificado CA raiz. Tipo: string.
+    - `caCertRaw`: Variável que armazena os dados brutos do certificado CA raiz. Tipo: []byte.
+    - `p`: Variável que representa o bloco PEM decodificado do certificado CA raiz. Tipo: *pem.Block.
+    - `caCert`: Variável que armazena o certificado CA raiz analisado. Tipo: *x509.Certificate.
+    - `certPool`: Variável que representa o pool de certificados contendo o certificado CA raiz. Tipo: *x509.CertPool.
 
 #### Executar a aplicação
 ```
